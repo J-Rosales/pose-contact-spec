@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pose-contact-spec"
+version = "0.1.0"
+description = "Minimal reference helpers for the pose-contact specification."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["jsonschema>=4.17.0", "PyYAML>=6.0"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pose_contact_spec = ["pose-contact.schema.json"]
