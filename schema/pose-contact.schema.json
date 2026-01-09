@@ -86,21 +86,7 @@
             "attachment_point"
           ]
         }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "owner_kind": { "const": "object" } } },
-          "then": {
-            "properties": { "owner": { "enum": { "$data": "/objects/*/id" } } }
-          }
-        },
-        {
-          "if": { "properties": { "owner_kind": { "const": "surface" } } },
-          "then": {
-            "properties": { "owner": { "enum": { "$data": "/surfaces/*/id" } } }
-          }
-        }
-      ]
+      }
     },
     "body_part_ref": {
       "type": "object",
@@ -152,7 +138,7 @@
       "required": ["kind", "anchor"],
       "properties": {
         "kind": { "const": "anchor" },
-        "anchor": { "type": "string", "enum": { "$data": "/anchors/*/id" } }
+        "anchor": { "$ref": "#/definitions/id" }
       }
     },
     "entity_ref": {
