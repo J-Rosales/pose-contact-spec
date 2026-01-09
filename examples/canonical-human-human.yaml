@@ -1,0 +1,44 @@
+schema_version: 0.1.0
+actors:
+  - id: actor_a
+    type: human
+    label: Actor A
+  - id: actor_b
+    type: human
+    label: Actor B
+surfaces:
+  - id: floor
+    label: Floor
+relations:
+  - id: rel_1
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: left
+    object:
+      kind: body_part
+      actor: actor_b
+      part: shoulder
+      side: right
+  - id: rel_2
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: floor
+  - id: rel_3
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: floor

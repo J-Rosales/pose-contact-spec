@@ -1,0 +1,30 @@
+schema_version: 0.1.0
+actors:
+  - id: actor_a
+    type: human
+    label: Actor A
+objects:
+  - id: mug
+    label: Mug
+surfaces:
+  - id: table
+    label: Table
+relations:
+  - id: rel_1
+    predicate: gripping
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: right
+    object:
+      kind: object
+      object: mug
+  - id: rel_2
+    predicate: supporting
+    subject:
+      kind: surface
+      surface: table
+    object:
+      kind: object
+      object: mug

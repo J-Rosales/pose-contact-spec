@@ -1,0 +1,15 @@
+schema_version: 0.1.0
+actors:
+  - id: actor_a
+    type: human
+relations:
+  - id: rel_1
+    predicate: flying
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: left
+    object:
+      kind: surface
+      surface: floor

@@ -1,0 +1,6 @@
+Narrative Projection (non-authoritative):
+
+- Actor A's left hand is touching Actor B's right shoulder.
+- Actor A is standing on the floor with both feet.
+
+Notes: This projection is derived from canonical-human-human.yaml and MUST NOT be treated as authoritative.
