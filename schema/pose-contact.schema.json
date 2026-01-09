@@ -23,6 +23,10 @@
       "type": "array",
       "items": { "$ref": "#/definitions/surface" }
     },
+    "anchors": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/anchor" }
+    },
     "relations": {
       "type": "array",
       "items": { "$ref": "#/definitions/relation" }
@@ -60,6 +64,35 @@
         "id": { "$ref": "#/definitions/id" },
         "label": { "type": "string" }
       }
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "owner_kind", "owner", "name", "role"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "owner_kind": { "type": "string", "enum": ["object", "surface"] },
+        "owner": { "$ref": "#/definitions/id" },
+        "name": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": ["seat", "backrest", "armrest", "top", "side", "edge", "corner"]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "owner_kind": { "const": "object" } } },
+          "then": {
+            "properties": { "owner": { "enum": { "$data": "/objects/*/id" } } }
+          }
+        },
+        {
+          "if": { "properties": { "owner_kind": { "const": "surface" } } },
+          "then": {
+            "properties": { "owner": { "enum": { "$data": "/surfaces/*/id" } } }
+          }
+        }
+      ]
     },
     "body_part_ref": {
       "type": "object",
@@ -105,11 +138,21 @@
         "surface": { "$ref": "#/definitions/id" }
       }
     },
+    "anchor_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "anchor"],
+      "properties": {
+        "kind": { "const": "anchor" },
+        "anchor": { "type": "string", "enum": { "$data": "/anchors/*/id" } }
+      }
+    },
     "entity_ref": {
       "oneOf": [
         { "$ref": "#/definitions/body_part_ref" },
         { "$ref": "#/definitions/object_ref" },
-        { "$ref": "#/definitions/surface_ref" }
+        { "$ref": "#/definitions/surface_ref" },
+        { "$ref": "#/definitions/anchor_ref" }
       ]
     },
     "qualifiers": {
