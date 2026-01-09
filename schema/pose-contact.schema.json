@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/pose-contact.schema.json",
+  "title": "Pose Contact Canonical State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "actors", "relations"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/actor" }
+    },
+    "objects": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/object" }
+    },
+    "surfaces": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/surface" }
+    },
+    "relations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/relation" }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "type": { "const": "human" },
+        "label": { "type": "string" }
+      }
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "label": { "type": "string" }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "label": { "type": "string" }
+      }
+    },
+    "body_part_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "actor", "part", "side"],
+      "properties": {
+        "kind": { "const": "body_part" },
+        "actor": { "$ref": "#/definitions/id" },
+        "part": {
+          "type": "string",
+          "enum": [
+            "head",
+            "neck",
+            "torso",
+            "pelvis",
+            "upper_arm",
+            "forearm",
+            "hand",
+            "shoulder",
+            "thigh",
+            "calf",
+            "foot"
+          ]
+        },
+        "side": { "type": "string", "enum": ["left", "right", "none"] }
+      }
+    },
+    "object_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "object"],
+      "properties": {
+        "kind": { "const": "object" },
+        "object": { "$ref": "#/definitions/id" }
+      }
+    },
+    "surface_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "surface"],
+      "properties": {
+        "kind": { "const": "surface" },
+        "surface": { "$ref": "#/definitions/id" }
+      }
+    },
+    "entity_ref": {
+      "oneOf": [
+        { "$ref": "#/definitions/body_part_ref" },
+        { "$ref": "#/definitions/object_ref" },
+        { "$ref": "#/definitions/surface_ref" }
+      ]
+    },
+    "qualifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "intensity": { "type": "string", "enum": ["light", "firm"] },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "contact_area": { "type": "string" }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "predicate", "subject", "object"],
+      "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "predicate": {
+          "type": "string",
+          "enum": [
+            "touching",
+            "gripping",
+            "holding",
+            "supporting",
+            "standing_on",
+            "sitting_on",
+            "leaning_on",
+            "contacting",
+            "left_of",
+            "right_of",
+            "above",
+            "below",
+            "facing",
+            "aligned_with"
+          ]
+        },
+        "subject": { "$ref": "#/definitions/entity_ref" },
+        "object": { "$ref": "#/definitions/entity_ref" },
+        "qualifiers": { "$ref": "#/definitions/qualifiers" }
+      }
+    }
+  }
+}
