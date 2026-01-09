@@ -80,7 +80,7 @@ Optional `qualifiers` MAY be provided to disambiguate intensity or duration.
 
 ## Validation and Invariants
 
-Implementations MUST enforce the following invariants:
+The JSON Schema validates structural requirements and controlled vocabularies only. Implementations MUST enforce the following invariants via higher-level validation:
 
 1. All referenced `actor`, `object`, `surface`, and `anchor` identifiers MUST exist.
 2. All `predicate` values MUST be in the controlled vocabulary.

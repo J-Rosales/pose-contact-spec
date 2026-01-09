@@ -20,11 +20,3 @@ relations:
     object:
       kind: object
       object: mug
-  - id: rel_2
-    predicate: supporting
-    subject:
-      kind: surface
-      surface: table
-    object:
-      kind: object
-      object: mug
