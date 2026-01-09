@@ -8,7 +8,7 @@ This section is normative.
 2. A narrative projection MUST NOT introduce new facts or modify canonical facts.
 3. A narrative projection MAY omit canonical facts that are irrelevant to a given interaction.
 4. A narrative projection MUST preserve predicate meanings and entity identities when described.
-5. When describing anchors in Layer 2 text, a narrative projection MUST name the specific anchor target (e.g., "chair seat" vs. "top edge of chair back") as defined in the canonical state.
+5. When describing anchors in Layer 2 text, a narrative projection MUST render the specific anchor `name` (e.g., "chair seat" vs. "top edge of chair back") as defined in the canonical state, and MAY include the functional `role` only as supporting context.
 
 ## Prohibitions
 

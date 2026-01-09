@@ -73,10 +73,18 @@
         "id": { "$ref": "#/definitions/id" },
         "owner_kind": { "type": "string", "enum": ["object", "surface"] },
         "owner": { "$ref": "#/definitions/id" },
-        "name": { "type": "string" },
+        "name": { "type": "string", "minLength": 1 },
         "role": {
           "type": "string",
-          "enum": ["seat", "backrest", "armrest", "top", "side", "edge", "corner"]
+          "enum": [
+            "support_surface",
+            "contact_surface",
+            "rest_surface",
+            "handle",
+            "edge",
+            "corner",
+            "attachment_point"
+          ]
         }
       },
       "allOf": [

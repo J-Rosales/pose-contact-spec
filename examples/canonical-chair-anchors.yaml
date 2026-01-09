@@ -1,4 +1,4 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 actors:
   - id: actor_a
     type: human
@@ -11,12 +11,12 @@ anchors:
     owner_kind: object
     owner: chair
     name: seat
-    role: seat
+    role: support_surface
   - id: chair_back_top
     owner_kind: object
     owner: chair
     name: back_top
-    role: backrest
+    role: support_surface
 relations:
   - id: rel_1
     predicate: sitting_on
