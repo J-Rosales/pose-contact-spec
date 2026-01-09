@@ -6,6 +6,7 @@ This section is normative unless otherwise noted.
 
 - **Actor:** An entity capable of having articulated body parts. In this specification, actors are human by default.
 - **Body Part:** A named anatomical segment belonging to an actor. Body parts are referenced with explicit side disambiguation.
+- **Anchor:** A locally named region that belongs to exactly one object or surface and can be referenced as a relation target.
 - **Contact:** A relation indicating physical contact between two entities without implying support or force.
 - **Support:** A relation indicating that one entity bears the weight of another.
 - **Relation:** A typed predicate connecting a subject entity to an object entity.
@@ -16,4 +17,3 @@ This section is normative unless otherwise noted.
 ## Left/Right Disambiguation
 
 Body parts that occur in left/right pairs MUST include a `side` attribute with a value of `left` or `right`. Unpaired parts MUST use `none`. Implementations MUST NOT infer side from naming conventions.
-

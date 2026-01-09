@@ -27,10 +27,10 @@ The following predicates are exhaustive and mutually independent. Implementation
 
 Relations MUST use subject and object entity references as follows:
 
-- `touching`, `contacting`: body_part ↔ body_part/object/surface
-- `gripping`, `holding`: body_part → object
-- `supporting`: surface/object → body_part
-- `standing_on`, `sitting_on`, `leaning_on`: body_part → surface/object
+- `touching`, `contacting`: body_part ↔ body_part/object/surface/anchor
+- `gripping`, `holding`: body_part → object/anchor
+- `supporting`: surface/object/anchor → body_part
+- `standing_on`, `sitting_on`, `leaning_on`: body_part → surface/object/anchor
 - Spatial relations (`left_of`, `right_of`, `above`, `below`, `facing`, `aligned_with`): any entity reference
 
 ## Qualifiers
@@ -40,4 +40,3 @@ Qualifiers are optional and MUST NOT change predicate semantics. Allowed qualifi
 - `intensity`: `light` or `firm`.
 - `duration_ms`: non-negative integer.
 - `contact_area`: free-form string.
-
