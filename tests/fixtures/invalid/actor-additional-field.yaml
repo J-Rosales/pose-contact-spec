@@ -1,0 +1,6 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+    extra: 123
+relations: []

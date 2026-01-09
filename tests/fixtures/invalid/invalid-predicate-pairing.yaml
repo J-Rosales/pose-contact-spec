@@ -1,0 +1,17 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+objects:
+  - id: box1
+relations:
+  - id: rel1
+    predicate: gripping
+    subject:
+      kind: object
+      object: box1
+    object:
+      kind: body_part
+      actor: actor1
+      part: hand
+      side: left

@@ -1,0 +1,17 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+objects:
+  - id: ball
+relations:
+  - id: rel1
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: ghost
+      part: hand
+      side: left
+    object:
+      kind: object
+      object: ball
