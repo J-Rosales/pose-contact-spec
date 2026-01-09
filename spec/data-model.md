@@ -55,15 +55,17 @@ Anchors MUST include:
 - `id` (string): Unique identifier within the document.
 - `owner_kind` (string): MUST be `object` or `surface`.
 - `owner` (string): The referenced object or surface `id`.
-- `name` (string): Locally meaningful name within the owning object or surface.
-- `role` (string): Controlled vocabulary role.
+- `name` (string): Locally meaningful descriptive name within the owning object or surface.
+- `role` (string): Controlled vocabulary functional role.
+
+Anchor `name` values SHOULD use a consistent, lowercase, delimiter-based convention (e.g., `snake_case`) to preserve local meaning without expanding the functional role vocabulary.
 
 Anchors are referenced in relations using:
 
 - `kind`: MUST be `anchor`.
 - `anchor`: The referenced anchor `id`.
 
-The controlled vocabulary for `role` is defined by the canonical schema and MUST be enforced. The initial vocabulary includes: `seat`, `backrest`, `armrest`, `top`, `side`, `edge`, `corner`.
+The controlled vocabulary for `role` is defined by the canonical schema and MUST be enforced. The initial vocabulary includes: `support_surface`, `contact_surface`, `rest_surface`, `handle`, `edge`, `corner`, `attachment_point`.
 
 ## Relations
 

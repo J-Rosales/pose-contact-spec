@@ -1,7 +1,16 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 actors:
   - id: actor_a
     type: human
+objects:
+  - id: chair
+    label: Chair
+anchors:
+  - id: chair_seat
+    owner_kind: object
+    owner: chair
+    name: seat
+    role: seat
 relations:
   - id: rel_1
     predicate: sitting_on
@@ -12,4 +21,4 @@ relations:
       side: none
     object:
       kind: anchor
-      anchor: missing_anchor
+      anchor: chair_seat

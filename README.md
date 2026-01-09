@@ -11,6 +11,8 @@ The specification defines a mandatory two-layer schema model:
 
 Coherence and correctness are guaranteed only by the canonical layer. Narrative projections are informative and non-authoritative.
 
+Anchors remain optional and describe locally named regions on objects or surfaces using a functional `role` plus a descriptive `name` (for example, a chair may have `role: support_surface` with `name: seat`).
+
 ## Non-Goals
 
 The specification does not:
@@ -26,4 +28,3 @@ The specification does not:
 - `schema/`: JSON Schema for canonical state validation.
 - `examples/`: Canonical and narrative projection examples.
 - `CHANGELOG.md`: Version history.
-
