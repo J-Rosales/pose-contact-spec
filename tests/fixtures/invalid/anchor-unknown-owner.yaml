@@ -1,0 +1,11 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+anchors:
+  - id: anchor1
+    owner_kind: object
+    owner: missing_object
+    name: handle
+    role: handle
+relations: []

@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import jsonschema
+from jsonschema.exceptions import best_match
 import yaml
 
 SPATIAL_PREDICATES = {
@@ -54,10 +55,16 @@ def collect_ids(instance: dict) -> dict[str, set[str]]:
     }
 
 
+def format_path(parts: list[object]) -> str:
+    if not parts:
+        return "/"
+    return "/" + "/".join(str(part) for part in parts)
+
+
 def validate_anchor_ownership(
     anchors: list[dict], ids: dict[str, set[str]]
-) -> list[str]:
-    errors: list[str] = []
+) -> list[tuple[str, str]]:
+    errors: list[tuple[str, str]] = []
     for index, anchor in enumerate(anchors):
         if not isinstance(anchor, dict):
             continue
@@ -66,41 +73,67 @@ def validate_anchor_ownership(
         if owner_kind == "object":
             if owner_id not in ids["objects"]:
                 errors.append(
-                    f"anchors[{index}].owner: unknown object id '{owner_id}'"
+                    (
+                        format_path(["anchors", index, "owner"]),
+                        f"unknown object id '{owner_id}'",
+                    )
                 )
         elif owner_kind == "surface":
             if owner_id not in ids["surfaces"]:
                 errors.append(
-                    f"anchors[{index}].owner: unknown surface id '{owner_id}'"
+                    (
+                        format_path(["anchors", index, "owner"]),
+                        f"unknown surface id '{owner_id}'",
+                    )
                 )
     return errors
 
 
 def validate_entity_ref(
     entity: dict,
-    path: str,
+    path: list[object],
     ids: dict[str, set[str]],
-) -> tuple[str | None, list[str]]:
-    errors: list[str] = []
+) -> tuple[str | None, list[tuple[str, str]]]:
+    errors: list[tuple[str, str]] = []
     if not isinstance(entity, dict):
         return None, errors
     kind = entity.get("kind")
     if kind == "body_part":
         actor_id = entity.get("actor")
         if actor_id not in ids["actors"]:
-            errors.append(f"{path}.actor: unknown actor id '{actor_id}'")
+            errors.append(
+                (
+                    format_path([*path, "actor"]),
+                    f"unknown actor id '{actor_id}'",
+                )
+            )
     elif kind == "object":
         object_id = entity.get("object")
         if object_id not in ids["objects"]:
-            errors.append(f"{path}.object: unknown object id '{object_id}'")
+            errors.append(
+                (
+                    format_path([*path, "object"]),
+                    f"unknown object id '{object_id}'",
+                )
+            )
     elif kind == "surface":
         surface_id = entity.get("surface")
         if surface_id not in ids["surfaces"]:
-            errors.append(f"{path}.surface: unknown surface id '{surface_id}'")
+            errors.append(
+                (
+                    format_path([*path, "surface"]),
+                    f"unknown surface id '{surface_id}'",
+                )
+            )
     elif kind == "anchor":
         anchor_id = entity.get("anchor")
         if anchor_id not in ids["anchors"]:
-            errors.append(f"{path}.anchor: unknown anchor id '{anchor_id}'")
+            errors.append(
+                (
+                    format_path([*path, "anchor"]),
+                    f"unknown anchor id '{anchor_id}'",
+                )
+            )
     return kind, errors
 
 
@@ -139,8 +172,8 @@ def describe_expected_pairing(predicate: str) -> str:
 def validate_relations(
     relations: list[dict],
     ids: dict[str, set[str]],
-) -> list[str]:
-    errors: list[str] = []
+) -> list[tuple[str, str]]:
+    errors: list[tuple[str, str]] = []
     for index, relation in enumerate(relations):
         if not isinstance(relation, dict):
             continue
@@ -148,10 +181,10 @@ def validate_relations(
         subject = relation.get("subject", {})
         object_ref = relation.get("object", {})
         subject_kind, subject_errors = validate_entity_ref(
-            subject, f"relations[{index}].subject", ids
+            subject, ["relations", index, "subject"], ids
         )
         object_kind, object_errors = validate_entity_ref(
-            object_ref, f"relations[{index}].object", ids
+            object_ref, ["relations", index, "object"], ids
         )
         errors.extend(subject_errors)
         errors.extend(object_errors)
@@ -160,9 +193,19 @@ def validate_relations(
         ):
             expected = describe_expected_pairing(predicate)
             errors.append(
-                f"relations[{index}]: predicate '{predicate}' requires {expected}"
+                (
+                    format_path(["relations", index]),
+                    f"predicate '{predicate}' requires {expected}",
+                )
             )
     return errors
+
+
+def normalize_schema_error(error: jsonschema.ValidationError) -> tuple[str, str]:
+    if error.context:
+        error = best_match(error.context)
+    path = format_path(list(error.absolute_path))
+    return path, error.message
 
 
 def validate_examples(schema: dict, examples_dir: Path) -> list[str]:
@@ -175,11 +218,13 @@ def validate_examples(schema: dict, examples_dir: Path) -> list[str]:
         if example_path.suffix not in {".yaml", ".yml", ".json"}:
             continue
         instance = load_example(example_path)
-        schema_errors = sorted(validator.iter_errors(instance), key=str)
+        schema_errors = [
+            normalize_schema_error(err) for err in validator.iter_errors(instance)
+        ]
+        schema_errors.sort()
         if schema_errors:
-            for error in schema_errors:
-                location = "/".join(str(part) for part in error.path) or "<root>"
-                errors.append(f"{example_path.name}: {location}: {error.message}")
+            for path, message in schema_errors:
+                errors.append(f"{example_path.name}: {path}: {message}")
             continue
 
         if isinstance(instance, dict):
@@ -187,10 +232,10 @@ def validate_examples(schema: dict, examples_dir: Path) -> list[str]:
             anchors = instance.get("anchors", [])
             relations = instance.get("relations", [])
 
-            for error in validate_anchor_ownership(anchors, ids):
-                errors.append(f"{example_path.name}: {error}")
-            for error in validate_relations(relations, ids):
-                errors.append(f"{example_path.name}: {error}")
+            for path, message in validate_anchor_ownership(anchors, ids):
+                errors.append(f"{example_path.name}: {path}: {message}")
+            for path, message in validate_relations(relations, ids):
+                errors.append(f"{example_path.name}: {path}: {message}")
     return errors
 
 

@@ -1,0 +1,17 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+surfaces:
+  - id: floor
+relations:
+  - id: rel1
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor1
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: floor
