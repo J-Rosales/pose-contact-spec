@@ -1,0 +1,40 @@
+schema_version: 0.1.0
+actors:
+  - id: actor_a
+    type: human
+    label: Actor A
+objects:
+  - id: chair
+    label: Chair
+anchors:
+  - id: chair_seat
+    owner_kind: object
+    owner: chair
+    name: seat
+    role: seat
+  - id: chair_back_top
+    owner_kind: object
+    owner: chair
+    name: back_top
+    role: backrest
+relations:
+  - id: rel_1
+    predicate: sitting_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: pelvis
+      side: none
+    object:
+      kind: anchor
+      anchor: chair_seat
+  - id: rel_2
+    predicate: sitting_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: pelvis
+      side: none
+    object:
+      kind: anchor
+      anchor: chair_back_top

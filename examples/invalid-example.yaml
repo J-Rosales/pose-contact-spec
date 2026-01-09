@@ -4,12 +4,12 @@ actors:
     type: human
 relations:
   - id: rel_1
-    predicate: flying
+    predicate: sitting_on
     subject:
       kind: body_part
       actor: actor_a
-      part: hand
-      side: left
+      part: pelvis
+      side: none
     object:
-      kind: surface
-      surface: floor
+      kind: anchor
+      anchor: missing_anchor
