@@ -28,3 +28,13 @@ The specification does not:
 - `schema/`: JSON Schema for canonical state validation.
 - `examples/`: Canonical and narrative projection examples.
 - `CHANGELOG.md`: Version history.
+
+## Reading order
+
+See `SPEC_INDEX.md` for the recommended reading order and a short contributor workflow.
+
+## Validate everything
+
+```bash
+python tools/validate_examples.py
+```
