@@ -1,44 +1,64 @@
-schema_version: 0.2.0
+schema_version: "1.0.0"
 actors:
-  - id: actor_a
+  - id: actor_alex
     type: human
-    label: Actor A
-  - id: actor_b
+    label: Alex
+  - id: actor_blair
     type: human
-    label: Actor B
+    label: Blair
 surfaces:
-  - id: floor
+  - id: surface_floor
     label: Floor
 relations:
-  - id: rel_1
+  - id: rel_touch_hand_shoulder
     predicate: touching
     subject:
       kind: body_part
-      actor: actor_a
+      actor: actor_alex
       part: hand
       side: left
     object:
       kind: body_part
-      actor: actor_b
+      actor: actor_blair
       part: shoulder
       side: right
-  - id: rel_2
+  - id: rel_alex_left_foot_floor
     predicate: standing_on
     subject:
       kind: body_part
-      actor: actor_a
+      actor: actor_alex
       part: foot
       side: left
     object:
       kind: surface
-      surface: floor
-  - id: rel_3
+      surface: surface_floor
+  - id: rel_alex_right_foot_floor
     predicate: standing_on
     subject:
       kind: body_part
-      actor: actor_a
+      actor: actor_alex
       part: foot
       side: right
     object:
       kind: surface
-      surface: floor
+      surface: surface_floor
+  - id: rel_blair_left_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_blair
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_blair_right_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_blair
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: surface_floor
