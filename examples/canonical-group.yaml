@@ -1,0 +1,112 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor_casey
+    type: human
+    label: Casey
+  - id: actor_drew
+    type: human
+    label: Drew
+  - id: actor_erin
+    type: human
+    label: Erin
+objects:
+  - id: object_ball
+    label: Ball
+surfaces:
+  - id: surface_floor
+    label: Floor
+relations:
+  - id: rel_casey_holds_ball
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_casey
+      part: hand
+      side: right
+    object:
+      kind: object
+      object: object_ball
+  - id: rel_drew_touches_casey
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_drew
+      part: hand
+      side: left
+    object:
+      kind: body_part
+      actor: actor_casey
+      part: shoulder
+      side: left
+  - id: rel_erin_touches_drew
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_erin
+      part: hand
+      side: right
+    object:
+      kind: body_part
+      actor: actor_drew
+      part: forearm
+      side: right
+  - id: rel_casey_left_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_casey
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_casey_right_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_casey
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_drew_left_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_drew
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_drew_right_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_drew
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_erin_left_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_erin
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: surface_floor
+  - id: rel_erin_right_foot_floor
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_erin
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: surface_floor
