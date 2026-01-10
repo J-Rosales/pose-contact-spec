@@ -1,0 +1,69 @@
+schema_version: 0.2.0
+actors:
+  - id: actor_a
+    type: human
+    label: Actor A
+  - id: actor_b
+    type: human
+    label: Actor B
+objects:
+  - id: railing
+    label: Railing
+  - id: chair
+    label: Chair
+surfaces:
+  - id: floor
+    label: Floor
+relations:
+  - id: rel_1
+    predicate: gripping
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: right
+    object:
+      kind: object
+      object: railing
+  - id: rel_2
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: left
+    object:
+      kind: body_part
+      actor: actor_b
+      part: shoulder
+      side: right
+  - id: rel_3
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: floor
+  - id: rel_4
+    predicate: leaning_on
+    subject:
+      kind: body_part
+      actor: actor_b
+      part: forearm
+      side: left
+    object:
+      kind: object
+      object: chair
+  - id: rel_5
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_b
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: floor

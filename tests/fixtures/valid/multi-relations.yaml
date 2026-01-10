@@ -1,0 +1,64 @@
+schema_version: 0.2.0
+actors:
+  - id: actor_a
+    type: human
+  - id: actor_b
+    type: human
+objects:
+  - id: box
+  - id: rail
+surfaces:
+  - id: platform
+relations:
+  - id: rel_1
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: left
+    object:
+      kind: body_part
+      actor: actor_b
+      part: forearm
+      side: right
+  - id: rel_2
+    predicate: gripping
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: hand
+      side: right
+    object:
+      kind: object
+      object: rail
+  - id: rel_3
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_a
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: platform
+  - id: rel_4
+    predicate: holding
+    subject:
+      kind: body_part
+      actor: actor_b
+      part: hand
+      side: left
+    object:
+      kind: object
+      object: box
+  - id: rel_5
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor_b
+      part: foot
+      side: right
+    object:
+      kind: surface
+      surface: platform
