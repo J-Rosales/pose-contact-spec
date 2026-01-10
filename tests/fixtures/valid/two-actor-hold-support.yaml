@@ -1,0 +1,31 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+  - id: actor2
+    type: human
+relations:
+  - id: rel1
+    predicate: holding
+    subject:
+      kind: body_part
+      actor: actor1
+      part: hand
+      side: left
+    object:
+      kind: body_part
+      actor: actor2
+      part: forearm
+      side: right
+  - id: rel2
+    predicate: supporting
+    subject:
+      kind: body_part
+      actor: actor2
+      part: forearm
+      side: right
+    object:
+      kind: body_part
+      actor: actor1
+      part: torso
+      side: none
