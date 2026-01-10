@@ -1,0 +1,41 @@
+schema_version: "1.0.0"
+actors:
+  - id: actor1
+    type: human
+  - id: actor2
+    type: human
+objects:
+  - id: crate
+surfaces:
+  - id: floor
+relations:
+  - id: rel1
+    predicate: standing_on
+    subject:
+      kind: body_part
+      actor: actor2
+      part: foot
+      side: left
+    object:
+      kind: surface
+      surface: floor
+  - id: rel2
+    predicate: touching
+    subject:
+      kind: body_part
+      actor: actor1
+      part: hand
+      side: right
+    object:
+      kind: object
+      object: crate
+  - id: rel3
+    predicate: supporting
+    subject:
+      kind: object
+      object: crate
+    object:
+      kind: body_part
+      actor: actor2
+      part: forearm
+      side: left
